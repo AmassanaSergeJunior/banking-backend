@@ -1,0 +1,1070 @@
+{
+	"info": {
+		"_postman_id": "tp-inf461-banque-2024",
+		"name": "TP INF461 - Systeme Bancaire Multi-Operateurs",
+		"description": "Collection complete pour tester les 10 Design Patterns implementes dans le systeme de transactions bancaires.\n\nUniversite de Yaounde I - INF461 Genie Logiciel",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "Objectif 1-2: Strategy & Factory (Auth)",
+			"item": [
+				{
+					"name": "Demo - Authentication",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/auth/demo",
+							"host": ["{{base_url}}"],
+							"path": ["api", "auth", "demo"]
+						},
+						"description": "Demonstration complete du pattern Strategy pour l'authentification"
+					}
+				},
+				{
+					"name": "Login - Orange",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"admin123\",\n    \"operatorCode\": \"ORANGE\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/login",
+							"host": ["{{base_url}}"],
+							"path": ["api", "auth", "login"]
+						}
+					}
+				},
+				{
+					"name": "Login - MTN",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"user1\",\n    \"password\": \"password123\",\n    \"operatorCode\": \"MTN\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/login",
+							"host": ["{{base_url}}"],
+							"path": ["api", "auth", "login"]
+						}
+					}
+				},
+				{
+					"name": "Login - Express Union",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"client\",\n    \"password\": \"secret\",\n    \"operatorCode\": \"EXPRESS_UNION\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/login",
+							"host": ["{{base_url}}"],
+							"path": ["api", "auth", "login"]
+						}
+					}
+				},
+				{
+					"name": "Liste Operateurs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/operators",
+							"host": ["{{base_url}}"],
+							"path": ["api", "operators"]
+						}
+					}
+				},
+				{
+					"name": "Details Operateur Orange",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/operators/ORANGE",
+							"host": ["{{base_url}}"],
+							"path": ["api", "operators", "ORANGE"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Objectif 3: Builder (Transactions)",
+			"item": [
+				{
+					"name": "Demo - Builder",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/transactions/demo",
+							"host": ["{{base_url}}"],
+							"path": ["api", "transactions", "demo"]
+						},
+						"description": "Demonstration du pattern Builder pour les transactions"
+					}
+				},
+				{
+					"name": "Creer Transaction - Transfert",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"TRANSFER\",\n    \"sourceAccount\": \"CM001234567890\",\n    \"targetAccount\": \"CM009876543210\",\n    \"amount\": 50000,\n    \"currency\": \"XAF\",\n    \"description\": \"Paiement facture electricite\",\n    \"operatorCode\": \"MTN\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/transactions/build",
+							"host": ["{{base_url}}"],
+							"path": ["api", "transactions", "build"]
+						}
+					}
+				},
+				{
+					"name": "Creer Transaction - Depot",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"DEPOSIT\",\n    \"targetAccount\": \"CM001234567890\",\n    \"amount\": 100000,\n    \"currency\": \"XAF\",\n    \"description\": \"Depot especes\",\n    \"operatorCode\": \"ORANGE\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/transactions/build",
+							"host": ["{{base_url}}"],
+							"path": ["api", "transactions", "build"]
+						}
+					}
+				},
+				{
+					"name": "Creer Transaction - Retrait",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"WITHDRAWAL\",\n    \"sourceAccount\": \"CM001234567890\",\n    \"amount\": 25000,\n    \"currency\": \"XAF\",\n    \"description\": \"Retrait GAB\",\n    \"operatorCode\": \"EXPRESS_UNION\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/transactions/build",
+							"host": ["{{base_url}}"],
+							"path": ["api", "transactions", "build"]
+						}
+					}
+				},
+				{
+					"name": "Recuperer Transaction par ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/transactions/TRX-00001",
+							"host": ["{{base_url}}"],
+							"path": ["api", "transactions", "TRX-00001"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Objectif 4: Singleton",
+			"item": [
+				{
+					"name": "Demo - Singleton",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/singleton/demo",
+							"host": ["{{base_url}}"],
+							"path": ["api", "singleton", "demo"]
+						},
+						"description": "Demonstration du pattern Singleton"
+					}
+				},
+				{
+					"name": "Configuration Globale",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/singleton/config",
+							"host": ["{{base_url}}"],
+							"path": ["api", "singleton", "config"]
+						}
+					}
+				},
+				{
+					"name": "Statistiques Cache",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/singleton/cache/stats",
+							"host": ["{{base_url}}"],
+							"path": ["api", "singleton", "cache", "stats"]
+						}
+					}
+				},
+				{
+					"name": "Logger Instance",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/singleton/logger",
+							"host": ["{{base_url}}"],
+							"path": ["api", "singleton", "logger"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Objectif 5: Adapter (SMS)",
+			"item": [
+				{
+					"name": "Demo - Adapter SMS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/sms/demo",
+							"host": ["{{base_url}}"],
+							"path": ["api", "sms", "demo"]
+						},
+						"description": "Demonstration du pattern Adapter pour SMS"
+					}
+				},
+				{
+					"name": "Envoyer SMS - Orange",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"phoneNumber\": \"+237690123456\",\n    \"message\": \"Votre code OTP est 123456. Valide 5 minutes.\",\n    \"provider\": \"ORANGE\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/sms/send",
+							"host": ["{{base_url}}"],
+							"path": ["api", "sms", "send"]
+						}
+					}
+				},
+				{
+					"name": "Envoyer SMS - MTN",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"phoneNumber\": \"+237677889900\",\n    \"message\": \"Transaction de 50000 FCFA effectuee avec succes.\",\n    \"provider\": \"MTN\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/sms/send",
+							"host": ["{{base_url}}"],
+							"path": ["api", "sms", "send"]
+						}
+					}
+				},
+				{
+					"name": "Envoyer SMS - Twilio",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"phoneNumber\": \"+237655443322\",\n    \"message\": \"Bienvenue! Votre compte a ete cree.\",\n    \"provider\": \"TWILIO\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/sms/send",
+							"host": ["{{base_url}}"],
+							"path": ["api", "sms", "send"]
+						}
+					}
+				},
+				{
+					"name": "Envoyer SMS - Auto Select",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"phoneNumber\": \"+237690555666\",\n    \"message\": \"SMS avec selection automatique du fournisseur\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/sms/send-auto",
+							"host": ["{{base_url}}"],
+							"path": ["api", "sms", "send-auto"]
+						}
+					}
+				},
+				{
+					"name": "Liste Fournisseurs SMS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/sms/providers",
+							"host": ["{{base_url}}"],
+							"path": ["api", "sms", "providers"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Objectif 6: Template Method",
+			"item": [
+				{
+					"name": "Demo - Template Method",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/processor/demo",
+							"host": ["{{base_url}}"],
+							"path": ["api", "processor", "demo"]
+						},
+						"description": "Demonstration du pattern Template Method"
+					}
+				},
+				{
+					"name": "Traiter - Banque",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"processorType\": \"BANK\",\n    \"sourceAccount\": \"CMAB12345678CD\",\n    \"targetAccount\": \"CMAB87654321CD\",\n    \"amount\": 100000,\n    \"description\": \"Virement bancaire inter-agences\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/processor/process",
+							"host": ["{{base_url}}"],
+							"path": ["api", "processor", "process"]
+						}
+					}
+				},
+				{
+					"name": "Traiter - Mobile Money",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"processorType\": \"MOBILE_MONEY\",\n    \"sourceAccount\": \"+237690123456\",\n    \"targetAccount\": \"+237677889900\",\n    \"amount\": 25000,\n    \"description\": \"Transfert Orange Money\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/processor/process",
+							"host": ["{{base_url}}"],
+							"path": ["api", "processor", "process"]
+						}
+					}
+				},
+				{
+					"name": "Traiter - Microfinance",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"processorType\": \"MICROFINANCE\",\n    \"sourceAccount\": \"MF001234\",\n    \"targetAccount\": \"MF005678\",\n    \"amount\": 15000,\n    \"description\": \"Remboursement pret microfinance\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/processor/process",
+							"host": ["{{base_url}}"],
+							"path": ["api", "processor", "process"]
+						}
+					}
+				},
+				{
+					"name": "Liste Types Processeurs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/processor/types",
+							"host": ["{{base_url}}"],
+							"path": ["api", "processor", "types"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Objectif 7: Composite (Notifications)",
+			"item": [
+				{
+					"name": "Demo - Composite",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/notifications/demo",
+							"host": ["{{base_url}}"],
+							"path": ["api", "notifications", "demo"]
+						},
+						"description": "Demonstration du pattern Composite pour les notifications"
+					}
+				},
+				{
+					"name": "Envoyer SMS",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"phoneNumber\": \"+237690123456\",\n    \"message\": \"Votre transaction de 50000 FCFA a ete effectuee.\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/notifications/sms",
+							"host": ["{{base_url}}"],
+							"path": ["api", "notifications", "sms"]
+						}
+					}
+				},
+				{
+					"name": "Envoyer Email",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"client@example.com\",\n    \"subject\": \"Confirmation de transaction\",\n    \"body\": \"Cher client,\\n\\nVotre transaction a ete effectuee avec succes.\\n\\nCordialement,\\nVotre Banque\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/notifications/email",
+							"host": ["{{base_url}}"],
+							"path": ["api", "notifications", "email"]
+						}
+					}
+				},
+				{
+					"name": "Envoyer Push",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"deviceToken\": \"device-token-abc123xyz\",\n    \"title\": \"Nouvelle transaction\",\n    \"body\": \"Vous avez recu 25000 FCFA\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/notifications/push",
+							"host": ["{{base_url}}"],
+							"path": ["api", "notifications", "push"]
+						}
+					}
+				},
+				{
+					"name": "Envoyer Multi-Canal",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Alerte Transaction\",\n    \"phone\": \"+237690123456\",\n    \"email\": \"client@mail.com\",\n    \"deviceToken\": \"device-token-xyz789\",\n    \"message\": \"Transaction de 100000 FCFA effectuee sur votre compte.\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/notifications/multi-channel",
+							"host": ["{{base_url}}"],
+							"path": ["api", "notifications", "multi-channel"]
+						}
+					}
+				},
+				{
+					"name": "Broadcast SMS",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Promo Nouvel An\",\n    \"recipients\": [\n        \"+237690001111\",\n        \"+237690002222\",\n        \"+237690003333\",\n        \"+237690004444\"\n    ],\n    \"message\": \"BANQUE: Bonne annee 2026! Profitez de 0% de frais jusqu'au 31 janvier!\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/notifications/broadcast/sms",
+							"host": ["{{base_url}}"],
+							"path": ["api", "notifications", "broadcast", "sms"]
+						}
+					}
+				},
+				{
+					"name": "Broadcast Email",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Newsletter Janvier\",\n    \"recipients\": [\n        \"client1@mail.com\",\n        \"client2@mail.com\",\n        \"client3@mail.com\"\n    ],\n    \"subject\": \"Newsletter - Janvier 2026\",\n    \"body\": \"Decouvrez nos nouveaux services bancaires!\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/notifications/broadcast/email",
+							"host": ["{{base_url}}"],
+							"path": ["api", "notifications", "broadcast", "email"]
+						}
+					}
+				},
+				{
+					"name": "Template - Confirmation Transaction",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"phone\": \"+237690123456\",\n    \"email\": \"client@mail.com\",\n    \"deviceToken\": \"device-123\",\n    \"multiChannel\": true,\n    \"variables\": {\n        \"type\": \"Virement\",\n        \"montant\": \"100000\",\n        \"reference\": \"TRX-2026-001\",\n        \"solde\": \"450000\",\n        \"nom\": \"Jean Kamga\",\n        \"date\": \"08/01/2026 14:30\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/notifications/template/TRANS_CONFIRM",
+							"host": ["{{base_url}}"],
+							"path": ["api", "notifications", "template", "TRANS_CONFIRM"]
+						}
+					}
+				},
+				{
+					"name": "Template - Alerte Securite",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"phone\": \"+237690123456\",\n    \"email\": \"client@mail.com\",\n    \"multiChannel\": true,\n    \"variables\": {\n        \"nom\": \"Jean Kamga\",\n        \"message\": \"Connexion depuis un nouvel appareil\",\n        \"date\": \"08/01/2026 22:15\",\n        \"appareil\": \"iPhone 15 Pro\",\n        \"localisation\": \"Douala, Cameroun\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/notifications/template/SEC_ALERT",
+							"host": ["{{base_url}}"],
+							"path": ["api", "notifications", "template", "SEC_ALERT"]
+						}
+					}
+				},
+				{
+					"name": "Template - Code OTP",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"phone\": \"+237690123456\",\n    \"variables\": {\n        \"code\": \"847291\",\n        \"duree\": \"5\",\n        \"nom\": \"Jean Kamga\",\n        \"operation\": \"Validation de transfert\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/notifications/template/OTP_CODE",
+							"host": ["{{base_url}}"],
+							"path": ["api", "notifications", "template", "OTP_CODE"]
+						}
+					}
+				},
+				{
+					"name": "Liste Templates",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/notifications/templates",
+							"host": ["{{base_url}}"],
+							"path": ["api", "notifications", "templates"]
+						}
+					}
+				},
+				{
+					"name": "Statistiques Notifications",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/notifications/stats",
+							"host": ["{{base_url}}"],
+							"path": ["api", "notifications", "stats"]
+						}
+					}
+				},
+				{
+					"name": "Historique Notifications",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/notifications/history?limit=20",
+							"host": ["{{base_url}}"],
+							"path": ["api", "notifications", "history"],
+							"query": [
+								{
+									"key": "limit",
+									"value": "20"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Reset Statistiques",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/notifications/reset",
+							"host": ["{{base_url}}"],
+							"path": ["api", "notifications", "reset"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Objectif 8: Decorator (Comptes)",
+			"item": [
+				{
+					"name": "Demo - Decorator",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/accounts/demo",
+							"host": ["{{base_url}}"],
+							"path": ["api", "accounts", "demo"]
+						},
+						"description": "Demonstration du pattern Decorator pour les comptes"
+					}
+				},
+				{
+					"name": "Creer Compte Simple",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"holder\": \"Jean Kamga\",\n    \"type\": \"COURANT\",\n    \"initialBalance\": 100000\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/accounts",
+							"host": ["{{base_url}}"],
+							"path": ["api", "accounts"]
+						}
+					}
+				},
+				{
+					"name": "Creer Compte Epargne avec Interets",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"holder\": \"Marie Nguema\",\n    \"type\": \"EPARGNE\",\n    \"initialBalance\": 500000,\n    \"withInterest\": true,\n    \"interestRate\": 4.5\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/accounts/with-features",
+							"host": ["{{base_url}}"],
+							"path": ["api", "accounts", "with-features"]
+						}
+					}
+				},
+				{
+					"name": "Creer Compte avec Decouvert",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"holder\": \"Paul Biya\",\n    \"type\": \"COURANT\",\n    \"initialBalance\": 50000,\n    \"withOverdraft\": true,\n    \"overdraftLimit\": 200000\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/accounts/with-features",
+							"host": ["{{base_url}}"],
+							"path": ["api", "accounts", "with-features"]
+						}
+					}
+				},
+				{
+					"name": "Creer Compte Premium (Multi-Decorateurs)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"holder\": \"Marc Foe\",\n    \"type\": \"PROFESSIONNEL\",\n    \"initialBalance\": 1000000,\n    \"withInterest\": true,\n    \"interestRate\": 2.5,\n    \"withOverdraft\": true,\n    \"overdraftLimit\": 500000,\n    \"withInsurance\": true,\n    \"insuranceType\": \"PREMIUM\",\n    \"withLoyalty\": true,\n    \"withFees\": true,\n    \"feeType\": \"BUSINESS\",\n    \"withNotifications\": true,\n    \"phone\": \"+237699001122\",\n    \"email\": \"marc.foe@business.cm\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/accounts/with-features",
+							"host": ["{{base_url}}"],
+							"path": ["api", "accounts", "with-features"]
+						}
+					}
+				},
+				{
+					"name": "Depot sur Compte",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amount\": 75000\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/accounts/CMCC001001/deposit",
+							"host": ["{{base_url}}"],
+							"path": ["api", "accounts", "CMCC001001", "deposit"]
+						},
+						"description": "Remplacez CMCC001001 par un numero de compte valide"
+					}
+				},
+				{
+					"name": "Retrait sur Compte",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amount\": 30000\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/accounts/CMCC001001/withdraw",
+							"host": ["{{base_url}}"],
+							"path": ["api", "accounts", "CMCC001001", "withdraw"]
+						}
+					}
+				},
+				{
+					"name": "Transfert entre Comptes",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"toAccount\": \"CMCE001002\",\n    \"amount\": 50000\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/accounts/CMCC001001/transfer",
+							"host": ["{{base_url}}"],
+							"path": ["api", "accounts", "CMCC001001", "transfer"]
+						}
+					}
+				},
+				{
+					"name": "Liste Tous les Comptes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/accounts",
+							"host": ["{{base_url}}"],
+							"path": ["api", "accounts"]
+						}
+					}
+				},
+				{
+					"name": "Details d'un Compte",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/accounts/CMCC001001",
+							"host": ["{{base_url}}"],
+							"path": ["api", "accounts", "CMCC001001"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Objectif 9: Visitor (Analytics)",
+			"item": [
+				{
+					"name": "Demo - Visitor",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/analytics/demo",
+							"host": ["{{base_url}}"],
+							"path": ["api", "analytics", "demo"]
+						},
+						"description": "Demonstration du pattern Visitor pour les analytics"
+					}
+				},
+				{
+					"name": "Statistiques Transactions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/analytics/statistics",
+							"host": ["{{base_url}}"],
+							"path": ["api", "analytics", "statistics"]
+						}
+					}
+				},
+				{
+					"name": "Rapport Fiscal",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/analytics/tax",
+							"host": ["{{base_url}}"],
+							"path": ["api", "analytics", "tax"]
+						}
+					}
+				},
+				{
+					"name": "Rapport Audit",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/analytics/audit",
+							"host": ["{{base_url}}"],
+							"path": ["api", "analytics", "audit"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Objectif 10: Observer (Evenements)",
+			"item": [
+				{
+					"name": "Demo - Observer",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/events/demo",
+							"host": ["{{base_url}}"],
+							"path": ["api", "events", "demo"]
+						},
+						"description": "Demonstration du pattern Observer pour les evenements"
+					}
+				},
+				{
+					"name": "Liste Observateurs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/events/observers",
+							"host": ["{{base_url}}"],
+							"path": ["api", "events", "observers"]
+						}
+					}
+				},
+				{
+					"name": "Historique Evenements",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/events/history?limit=30",
+							"host": ["{{base_url}}"],
+							"path": ["api", "events", "history"],
+							"query": [
+								{
+									"key": "limit",
+									"value": "30"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Statistiques Temps Reel",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/events/statistics",
+							"host": ["{{base_url}}"],
+							"path": ["api", "events", "statistics"]
+						}
+					}
+				},
+				{
+					"name": "Alertes Securite",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/events/alerts",
+							"host": ["{{base_url}}"],
+							"path": ["api", "events", "alerts"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Health Check",
+			"item": [
+				{
+					"name": "Application Status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/actuator/health",
+							"host": ["{{base_url}}"],
+							"path": ["actuator", "health"]
+						}
+					}
+				}
+			]
+		}
+	]
+}
