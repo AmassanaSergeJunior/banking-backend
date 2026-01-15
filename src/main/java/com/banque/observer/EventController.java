@@ -71,6 +71,8 @@ public class EventController {
     public ResponseEntity<List<SecurityObserver.SecurityAlert>> getSecurityAlerts() {
         return ResponseEntity.ok(eventService.getSecurityObserver().getAlerts());
     }
+    //demonstration
+    
 
     @GetMapping("/demo")
     public ResponseEntity<DemoResponse> demo() {

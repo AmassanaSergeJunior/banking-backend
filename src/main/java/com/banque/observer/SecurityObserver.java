@@ -6,7 +6,7 @@ import java.util.*;
 /**
  * PATTERN OBSERVER - ConcreteObserver (Securite)
  *
- * OBJECTIF 10: Observateur qui surveille les evenements de securite.
+ * OBJECTIF 10: Observateur qui surveilles les evenements de securite.
  */
 public class SecurityObserver implements EventObserver {
 

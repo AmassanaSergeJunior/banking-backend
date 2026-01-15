@@ -21,7 +21,7 @@ public interface EventObserver {
     String getObserverName();
 
     /**
-     * Verifie si l'observateur est interesse par un type d'evenement.
+     * Verifier si l'observateur est interesse par un type d'evenement.
      */
     default boolean isInterestedIn(BankEvent.EventType eventType) {
         return true; // Par defaut, interesse par tous les evenements

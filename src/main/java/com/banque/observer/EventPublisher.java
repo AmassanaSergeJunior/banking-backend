@@ -30,7 +30,7 @@ public class EventPublisher {
     // ==================== GESTION DES OBSERVATEURS ====================
 
     /**
-     * Ajoute un observateur.
+     * Ajouter un observateur.
      */
     public void subscribe(EventObserver observer) {
         if (observer != null && !observers.contains(observer)) {

@@ -34,7 +34,7 @@ public class LoggingObserver implements EventObserver {
         String logEntry = formatLogEntry(event);
         logs.add(logEntry);
 
-        // Afficher selon le niveau
+        // Afficher selon les niveaux
         String prefix = getPrefix(event.getSeverity());
         System.out.println("  [LOG] " + prefix + " " + event.getEventType().getDescription());
     }

@@ -18,7 +18,7 @@ public class NotificationObserver implements EventObserver {
         this.sentNotifications = new ArrayList<>();
         this.notifiableEvents = new HashSet<>();
 
-        // Evenements qui declenchent des notifications par defaut
+        // Evenements qui declenchent des notifications par defauts
         notifiableEvents.add(BankEvent.EventType.DEPOSIT_MADE);
         notifiableEvents.add(BankEvent.EventType.WITHDRAWAL_MADE);
         notifiableEvents.add(BankEvent.EventType.TRANSFER_MADE);

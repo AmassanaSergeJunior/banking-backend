@@ -42,7 +42,7 @@ public class StatisticsObserver implements EventObserver {
         // Compter par type
         eventCounts.merge(event.getEventType(), 1, Integer::sum);
 
-        // Compter par severite
+        // Compter par severites
         severityCounts.merge(event.getSeverity(), 1, Integer::sum);
 
         // Aggreger les montants de transactions

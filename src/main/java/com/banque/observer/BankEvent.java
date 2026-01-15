@@ -39,6 +39,7 @@ public class BankEvent {
         this.data = new HashMap<>();
         this.severity = severity;
     }
+    // les methodes du builder
 
     // ==================== BUILDER METHODS ====================
 

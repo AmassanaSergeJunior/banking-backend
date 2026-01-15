@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 /**
  * PATTERN OBSERVER - Service d'Evenements
  *
- * OBJECTIF 10: Service centralise pour la gestion des evenements.
+ * OBJECTIF 10: Services centralise pour la gestion des evenements.
  */
 @Service
 public class EventService {
